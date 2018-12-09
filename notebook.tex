@@ -1,0 +1,2068 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{analysis}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \hypertarget{fbi-nics-firearm-background-check-data-analysis}{%
+\section{FBI NICS Firearm Background Check Data
+Analysis}\label{fbi-nics-firearm-background-check-data-analysis}}
+
+\hypertarget{table-of-contents}{%
+\subsection{Table of Contents}\label{table-of-contents}}
+
+Introduction
+
+Data Wrangling
+
+Exploratory Data Analysis
+
+Conclusions
+
+     \#\# Introduction
+
+The data in this project comes from the
+\href{https://www.fbi.gov/about-us/cjis/nics}{FBI's National Instant
+Criminal Background Check System}. The NICS is used to determine whether
+a prospective buyer is eligible to buy firearms or explosives. Gun shops
+call into this system to ensure that each customer does not have a
+criminal record or isn't otherwise ineligible to make a purchase. The
+data has been supplemented with state level data from
+\href{https://www.google.com/url?q=https://www.census.gov/\&sa=D\&ust=1532469042127000}{census.gov}.
+
+\begin{quote}
+Mandated by the Brady Handgun Violence Prevention Act of 1993 and
+launched by the FBI on November 30, 1998, NICS is used by Federal
+Firearms Licensees (FFLs) to instantly determine whether a prospective
+buyer is eligible to buy firearms or explosives. Before ringing up the
+sale, cashiers call in a check to the FBI or to other designated
+agencies to ensure that each customer does not have a criminal record or
+isn't otherwise ineligible to make a purchase. More than 100 million
+such checks have been made in the last decade, leading to more than
+700,000 denials.
+\end{quote}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{c+c1}{\PYZsh{} import libraries}
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{datetime}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k}{as} \PY{n+nn}{sns}
+        
+        \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+\end{Verbatim}
+
+
+     \#\# Data Wrangling
+
+In this section of the report, I load in the data, check for
+cleanliness, and then trim and clean the datasets for analysis.
+
+\hypertarget{general-properties}{%
+\subsubsection{General Properties}\label{general-properties}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{c+c1}{\PYZsh{} Load data}
+        \PY{n}{gun} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}excel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data/gun\PYZus{}data.xlsx}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{census} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data/U.S. Census Data.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{thousands}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{,}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{gun-dataset}{%
+\subsubsection{Gun dataset}\label{gun-dataset}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{c+c1}{\PYZsh{} print out a shape of dataframe}
+        \PY{n}{gun}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}3}]:} (12485, 27)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{c+c1}{\PYZsh{} print out a few lines}
+        \PY{n}{gun}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}4}]:}      month       state   permit  permit\_recheck  handgun  long\_gun   other  \textbackslash{}
+        0  2017-09     Alabama  16717.0             0.0   5734.0    6320.0   221.0   
+        1  2017-09      Alaska    209.0             2.0   2320.0    2930.0   219.0   
+        2  2017-09     Arizona   5069.0           382.0  11063.0    7946.0   920.0   
+        3  2017-09    Arkansas   2935.0           632.0   4347.0    6063.0   165.0   
+        4  2017-09  California  57839.0             0.0  37165.0   24581.0  2984.0   
+        
+           multiple  admin  prepawn\_handgun   {\ldots}    returned\_other  rentals\_handgun  \textbackslash{}
+        0       317    0.0             15.0   {\ldots}               0.0              0.0   
+        1       160    0.0              5.0   {\ldots}               0.0              0.0   
+        2       631    0.0             13.0   {\ldots}               0.0              0.0   
+        3       366   51.0             12.0   {\ldots}               0.0              0.0   
+        4         0    0.0              0.0   {\ldots}               0.0              0.0   
+        
+           rentals\_long\_gun  private\_sale\_handgun  private\_sale\_long\_gun  \textbackslash{}
+        0               0.0                   9.0                   16.0   
+        1               0.0                  17.0                   24.0   
+        2               0.0                  38.0                   12.0   
+        3               0.0                  13.0                   23.0   
+        4               0.0                   0.0                    0.0   
+        
+           private\_sale\_other  return\_to\_seller\_handgun  return\_to\_seller\_long\_gun  \textbackslash{}
+        0                 3.0                       0.0                        0.0   
+        1                 1.0                       0.0                        0.0   
+        2                 2.0                       0.0                        0.0   
+        3                 0.0                       0.0                        2.0   
+        4                 0.0                       0.0                        0.0   
+        
+           return\_to\_seller\_other  totals  
+        0                     3.0   32019  
+        1                     0.0    6303  
+        2                     0.0   28394  
+        3                     1.0   17747  
+        4                     0.0  123506  
+        
+        [5 rows x 27 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{c+c1}{\PYZsh{} display summary of the dataframe}
+        \PY{n}{gun}\PY{o}{.}\PY{n}{info}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 12485 entries, 0 to 12484
+Data columns (total 27 columns):
+month                        12485 non-null object
+state                        12485 non-null object
+permit                       12461 non-null float64
+permit\_recheck               1100 non-null float64
+handgun                      12465 non-null float64
+long\_gun                     12466 non-null float64
+other                        5500 non-null float64
+multiple                     12485 non-null int64
+admin                        12462 non-null float64
+prepawn\_handgun              10542 non-null float64
+prepawn\_long\_gun             10540 non-null float64
+prepawn\_other                5115 non-null float64
+redemption\_handgun           10545 non-null float64
+redemption\_long\_gun          10544 non-null float64
+redemption\_other             5115 non-null float64
+returned\_handgun             2200 non-null float64
+returned\_long\_gun            2145 non-null float64
+returned\_other               1815 non-null float64
+rentals\_handgun              990 non-null float64
+rentals\_long\_gun             825 non-null float64
+private\_sale\_handgun         2750 non-null float64
+private\_sale\_long\_gun        2750 non-null float64
+private\_sale\_other           2750 non-null float64
+return\_to\_seller\_handgun     2475 non-null float64
+return\_to\_seller\_long\_gun    2750 non-null float64
+return\_to\_seller\_other       2255 non-null float64
+totals                       12485 non-null int64
+dtypes: float64(23), int64(2), object(2)
+memory usage: 2.6+ MB
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{c+c1}{\PYZsh{} check for duplicates}
+        \PY{n}{gun}\PY{o}{.}\PY{n}{duplicated}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}6}]:} 0
+\end{Verbatim}
+            
+    Gun dataset is pretty clean. In the Data Cleaning section I will fix the
+following issues:
+
+\begin{itemize}
+\tightlist
+\item
+  `month' column contains both year and month;
+\item
+  `handgun' column contains null values;
+\item
+  `long\_gun' column contains null values;
+\end{itemize}
+
+Despite those small issues, I can get some statistics already.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{c+c1}{\PYZsh{} display basic stats}
+        \PY{n}{gun}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}7}]:}               permit  permit\_recheck        handgun       long\_gun  \textbackslash{}
+        count   12461.000000     1100.000000   12465.000000   12466.000000   
+        mean     6413.629404     1165.956364    5940.881107    7810.847585   
+        std     23752.338269     9224.200609    8618.584060    9309.846140   
+        min         0.000000        0.000000       0.000000       0.000000   
+        25\%         0.000000        0.000000     865.000000    2078.250000   
+        50\%       518.000000        0.000000    3059.000000    5122.000000   
+        75\%      4272.000000        0.000000    7280.000000   10380.750000   
+        max    522188.000000   116681.000000  107224.000000  108058.000000   
+        
+                      other      multiple         admin  prepawn\_handgun  \textbackslash{}
+        count   5500.000000  12485.000000  12462.000000     10542.000000   
+        mean     360.471636    268.603364     58.898090         4.828021   
+        std     1349.478273    783.185073    604.814818        10.907756   
+        min        0.000000      0.000000      0.000000         0.000000   
+        25\%       17.000000     15.000000      0.000000         0.000000   
+        50\%      121.000000    125.000000      0.000000         0.000000   
+        75\%      354.000000    301.000000      0.000000         5.000000   
+        max    77929.000000  38907.000000  28083.000000       164.000000   
+        
+               prepawn\_long\_gun  prepawn\_other      {\ldots}        returned\_other  \textbackslash{}
+        count      10540.000000    5115.000000      {\ldots}           1815.000000   
+        mean           7.834156       0.165591      {\ldots}              1.027548   
+        std           16.468028       1.057105      {\ldots}              4.386296   
+        min            0.000000       0.000000      {\ldots}              0.000000   
+        25\%            0.000000       0.000000      {\ldots}              0.000000   
+        50\%            1.000000       0.000000      {\ldots}              0.000000   
+        75\%            8.000000       0.000000      {\ldots}              0.000000   
+        max          269.000000      49.000000      {\ldots}             64.000000   
+        
+               rentals\_handgun  rentals\_long\_gun  private\_sale\_handgun  \textbackslash{}
+        count       990.000000        825.000000           2750.000000   
+        mean          0.076768          0.087273             14.936000   
+        std           0.634503          0.671649             71.216021   
+        min           0.000000          0.000000              0.000000   
+        25\%           0.000000          0.000000              0.000000   
+        50\%           0.000000          0.000000              0.000000   
+        75\%           0.000000          0.000000              2.000000   
+        max          12.000000         12.000000           1017.000000   
+        
+               private\_sale\_long\_gun  private\_sale\_other  return\_to\_seller\_handgun  \textbackslash{}
+        count            2750.000000         2750.000000               2475.000000   
+        mean               11.602909            1.030182                  0.402020   
+        std                54.253090            4.467843                  1.446568   
+        min                 0.000000            0.000000                  0.000000   
+        25\%                 0.000000            0.000000                  0.000000   
+        50\%                 0.000000            0.000000                  0.000000   
+        75\%                 4.000000            0.000000                  0.000000   
+        max               777.000000           71.000000                 28.000000   
+        
+               return\_to\_seller\_long\_gun  return\_to\_seller\_other         totals  
+        count                2750.000000             2255.000000   12485.000000  
+        mean                    0.441818                0.105987   21595.725911  
+        std                     1.528223                0.427363   32591.418387  
+        min                     0.000000                0.000000       0.000000  
+        25\%                     0.000000                0.000000    4638.000000  
+        50\%                     0.000000                0.000000   12399.000000  
+        75\%                     0.000000                0.000000   25453.000000  
+        max                    17.000000                4.000000  541978.000000  
+        
+        [8 rows x 25 columns]
+\end{Verbatim}
+            
+    \hypertarget{census-dataset}{%
+\subsubsection{Census dataset}\label{census-dataset}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{c+c1}{\PYZsh{} print out dataframe}
+        \PY{n}{census}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}8}]:}                                                 Fact Fact Note    Alabama  \textbackslash{}
+        0       Population estimates, July 1, 2016,  (V2016)       NaN  4,863,300   
+        1  Population estimates base, April 1, 2010,  (V2{\ldots}       NaN  4,780,131   
+        2  Population, percent change - April 1, 2010 (es{\ldots}       NaN      1.70\%   
+        3                  Population, Census, April 1, 2010       NaN  4,779,736   
+        4  Persons under 5 years, percent, July 1, 2016, {\ldots}       NaN      6.00\%   
+        
+            Alaska    Arizona   Arkansas  California   Colorado Connecticut Delaware  \textbackslash{}
+        0  741,894  6,931,071  2,988,248  39,250,017  5,540,545   3,576,452  952,065   
+        1  710,249  6,392,301  2,916,025  37,254,522  5,029,324   3,574,114  897,936   
+        2    4.50\%      8.40\%      2.50\%       5.40\%     10.20\%       0.10\%    6.00\%   
+        3  710,231  6,392,017  2,915,918  37,253,956  5,029,196   3,574,097  897,934   
+        4    7.30\%      6.30\%      6.40\%       6.30\%      6.10\%       5.20\%    5.80\%   
+        
+            {\ldots}    South Dakota Tennessee       Texas       Utah  Vermont   Virginia  \textbackslash{}
+        0   {\ldots}          865454   6651194  27,862,596  3,051,217  624,594  8,411,808   
+        1   {\ldots}          814195   6346298  25,146,100  2,763,888  625,741  8,001,041   
+        2   {\ldots}           0.063     0.048      10.80\%     10.40\%   -0.20\%      5.10\%   
+        3   {\ldots}          814180   6346105  25,145,561  2,763,885  625,741  8,001,024   
+        4   {\ldots}           0.071     0.061       7.20\%      8.30\%    4.90\%      6.10\%   
+        
+          Washington West Virginia  Wisconsin  Wyoming  
+        0  7,288,000     1,831,102  5,778,708  585,501  
+        1  6,724,545     1,853,011  5,687,289  563,767  
+        2      8.40\%        -1.20\%      1.60\%    3.90\%  
+        3  6,724,540     1,852,994  5,686,986  563,626  
+        4      6.20\%         5.50\%      5.80\%    6.50\%  
+        
+        [5 rows x 52 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{c+c1}{\PYZsh{} display summary of the dataframe}
+        \PY{n}{census}\PY{o}{.}\PY{n}{info}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 85 entries, 0 to 84
+Data columns (total 52 columns):
+Fact              80 non-null object
+Fact Note         28 non-null object
+Alabama           65 non-null object
+Alaska            65 non-null object
+Arizona           65 non-null object
+Arkansas          65 non-null object
+California        65 non-null object
+Colorado          65 non-null object
+Connecticut       65 non-null object
+Delaware          65 non-null object
+Florida           65 non-null object
+Georgia           65 non-null object
+Hawaii            65 non-null object
+Idaho             65 non-null object
+Illinois          65 non-null object
+Indiana           65 non-null object
+Iowa              65 non-null object
+Kansas            65 non-null object
+Kentucky          65 non-null object
+Louisiana         65 non-null object
+Maine             65 non-null object
+Maryland          65 non-null object
+Massachusetts     65 non-null object
+Michigan          65 non-null object
+Minnesota         65 non-null object
+Mississippi       65 non-null object
+Missouri          65 non-null object
+Montana           65 non-null object
+Nebraska          65 non-null object
+Nevada            65 non-null object
+New Hampshire     65 non-null object
+New Jersey        65 non-null object
+New Mexico        65 non-null object
+New York          65 non-null object
+North Carolina    65 non-null object
+North Dakota      65 non-null object
+Ohio              65 non-null object
+Oklahoma          65 non-null object
+Oregon            65 non-null object
+Pennsylvania      65 non-null object
+Rhode Island      65 non-null object
+South Carolina    65 non-null object
+South Dakota      65 non-null object
+Tennessee         65 non-null object
+Texas             65 non-null object
+Utah              65 non-null object
+Vermont           65 non-null object
+Virginia          65 non-null object
+Washington        65 non-null object
+West Virginia     65 non-null object
+Wisconsin         65 non-null object
+Wyoming           65 non-null object
+dtypes: object(52)
+memory usage: 34.6+ KB
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{c+c1}{\PYZsh{} check for duplicates}
+         \PY{n}{census}\PY{o}{.}\PY{n}{duplicated}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}10}]:} 3
+\end{Verbatim}
+            
+    Census dataset is messy. In the Data Cleaning section I will fix the
+following issues:
+
+\begin{itemize}
+\tightlist
+\item
+  `Fact Note' column will not be useful for analysis and can be removed;
+\item
+  rows starting from the row 65 will not be useful for analysis and can
+  be removed;
+\item
+  dateset would be easier to use when transposed;
+\item
+  column names can be simplified;
+\item
+  all columns are strings, while some hold numeric values;
+\end{itemize}
+
+    \hypertarget{data-cleaning}{%
+\subsubsection{Data Cleaning}\label{data-cleaning}}
+
+\textbf{Census Dataset}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{c+c1}{\PYZsh{} keep all rows up to 65}
+         \PY{n}{census} \PY{o}{=} \PY{n}{census}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{65}\PY{p}{,}\PY{p}{:}\PY{p}{]}
+         
+         \PY{c+c1}{\PYZsh{} drop \PYZsq{}Fact note\PYZsq{} column}
+         \PY{n}{census} \PY{o}{=} \PY{n}{census}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Fact Note}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} transpose dataframe}
+         \PY{n}{census} \PY{o}{=} \PY{n}{census}\PY{o}{.}\PY{n}{transpose}\PY{p}{(}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} convert first row to column\PYZsq{}s header}
+         \PY{n}{census}\PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{n}{census}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{census}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{census}\PY{o}{.}\PY{n}{index}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{c+c1}{\PYZsh{} display full list of columns}
+         \PY{n}{census}\PY{o}{.}\PY{n}{columns}\PY{o}{.}\PY{n}{values}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}12}]:} array(['Population estimates, July 1, 2016,  (V2016)',
+                'Population estimates base, April 1, 2010,  (V2016)',
+                'Population, percent change - April 1, 2010 (estimates base) to July 1, 2016,  (V2016)',
+                'Population, Census, April 1, 2010',
+                'Persons under 5 years, percent, July 1, 2016,  (V2016)',
+                'Persons under 5 years, percent, April 1, 2010',
+                'Persons under 18 years, percent, July 1, 2016,  (V2016)',
+                'Persons under 18 years, percent, April 1, 2010',
+                'Persons 65 years and over, percent,  July 1, 2016,  (V2016)',
+                'Persons 65 years and over, percent, April 1, 2010',
+                'Female persons, percent,  July 1, 2016,  (V2016)',
+                'Female persons, percent, April 1, 2010',
+                'White alone, percent, July 1, 2016,  (V2016)',
+                'Black or African American alone, percent, July 1, 2016,  (V2016)',
+                'American Indian and Alaska Native alone, percent, July 1, 2016,  (V2016)',
+                'Asian alone, percent, July 1, 2016,  (V2016)',
+                'Native Hawaiian and Other Pacific Islander alone, percent, July 1, 2016,  (V2016)',
+                'Two or More Races, percent, July 1, 2016,  (V2016)',
+                'Hispanic or Latino, percent, July 1, 2016,  (V2016)',
+                'White alone, not Hispanic or Latino, percent, July 1, 2016,  (V2016)',
+                'Veterans, 2011-2015', 'Foreign born persons, percent, 2011-2015',
+                'Housing units,  July 1, 2016,  (V2016)',
+                'Housing units, April 1, 2010',
+                'Owner-occupied housing unit rate, 2011-2015',
+                'Median value of owner-occupied housing units, 2011-2015',
+                'Median selected monthly owner costs -with a mortgage, 2011-2015',
+                'Median selected monthly owner costs -without a mortgage, 2011-2015',
+                'Median gross rent, 2011-2015', 'Building permits, 2016',
+                'Households, 2011-2015', 'Persons per household, 2011-2015',
+                'Living in same house 1 year ago, percent of persons age 1 year+, 2011-2015',
+                'Language other than English spoken at home, percent of persons age 5 years+, 2011-2015',
+                'High school graduate or higher, percent of persons age 25 years+, 2011-2015',
+                "Bachelor's degree or higher, percent of persons age 25 years+, 2011-2015",
+                'With a disability, under age 65 years, percent, 2011-2015',
+                'Persons  without health insurance, under age 65 years, percent',
+                'In civilian labor force, total, percent of population age 16 years+, 2011-2015',
+                'In civilian labor force, female, percent of population age 16 years+, 2011-2015',
+                'Total accommodation and food services sales, 2012 (\$1,000)',
+                'Total health care and social assistance receipts/revenue, 2012 (\$1,000)',
+                'Total manufacturers shipments, 2012 (\$1,000)',
+                'Total merchant wholesaler sales, 2012 (\$1,000)',
+                'Total retail sales, 2012 (\$1,000)',
+                'Total retail sales per capita, 2012',
+                'Mean travel time to work (minutes), workers age 16 years+, 2011-2015',
+                'Median household income (in 2015 dollars), 2011-2015',
+                'Per capita income in past 12 months (in 2015 dollars), 2011-2015',
+                'Persons in poverty, percent',
+                'Total employer establishments, 2015', 'Total employment, 2015',
+                'Total annual payroll, 2015 (\$1,000)',
+                'Total employment, percent change, 2014-2015',
+                'Total nonemployer establishments, 2015', 'All firms, 2012',
+                'Men-owned firms, 2012', 'Women-owned firms, 2012',
+                'Minority-owned firms, 2012', 'Nonminority-owned firms, 2012',
+                'Veteran-owned firms, 2012', 'Nonveteran-owned firms, 2012',
+                'Population per square mile, 2010',
+                'Land area in square miles, 2010', 'FIPS Code'], dtype=object)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{c+c1}{\PYZsh{} select columns which will be analysed}
+         \PY{n}{census} \PY{o}{=} \PY{n}{census}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Population, Census, April 1, 2010}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                           \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Population estimates, July 1, 2016,  (V2016)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                           \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Population per square mile, 2010}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                           \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Land area in square miles, 2010}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                           \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{White alone, not Hispanic or Latino, percent, July 1, 2016,  (V2016)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                           \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Hispanic or Latino, percent, July 1, 2016,  (V2016)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                           \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Black or African American alone, percent, July 1, 2016,  (V2016)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                           \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{American Indian and Alaska Native alone, percent, July 1, 2016,  (V2016)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                           \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Native Hawaiian and Other Pacific Islander alone, percent, July 1, 2016,  (V2016)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                           \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Asian alone, percent, July 1, 2016,  (V2016)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                           \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Foreign born persons, percent, 2011\PYZhy{}2015}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                           \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Language other than English spoken at home, percent of persons age 5 years+, 2011\PYZhy{}2015}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                           \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{High school graduate or higher, percent of persons age 25 years+, 2011\PYZhy{}2015}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                           \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Bachelor}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{s degree or higher, percent of persons age 25 years+, 2011\PYZhy{}2015}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                           \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Veterans, 2011\PYZhy{}2015}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                           \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{With a disability, under age 65 years, percent, 2011\PYZhy{}2015}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}                  
+                           \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Persons in poverty, percent}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                           \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Persons  without health insurance, under age 65 years, percent}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}               
+                           \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Persons per household, 2011\PYZhy{}2015}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                           \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Per capita income in past 12 months (in 2015 dollars), 2011\PYZhy{}2015}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                           \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Median household income (in 2015 dollars), 2011\PYZhy{}2015}\PY{l+s+s1}{\PYZsq{}}
+                          \PY{p}{]}\PY{p}{]}
+         
+         \PY{c+c1}{\PYZsh{} rename columns}
+         \PY{n}{census}\PY{o}{.}\PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Population\PYZus{}2010}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                           \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Population\PYZus{}2016}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                           \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Population\PYZus{}sq\PYZus{}mile\PYZus{}2010}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                           \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Land\PYZus{}area\PYZus{}sq\PYZus{}mile\PYZus{}2010}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                           \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{White\PYZus{}2016}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                           \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Hispanic\PYZus{}Latino\PYZus{}2016}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                           \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Black\PYZus{}African\PYZus{}American\PYZus{}2016}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                           \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{American\PYZus{}Indian\PYZus{}Alaska\PYZus{}Native\PYZus{}2016}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                           \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Native\PYZus{}Hawaiian\PYZus{}Pacific\PYZus{}Islander\PYZus{}2016}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                           \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Asian\PYZus{}2016}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                           \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Foreign\PYZus{}born\PYZus{}persons\PYZus{}2011\PYZhy{}2015}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                           \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Language\PYZus{}not\PYZus{}English\PYZus{}spoken\PYZus{}home\PYZus{}2011\PYZhy{}2015}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                           \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{High\PYZus{}school\PYZus{}or\PYZus{}higher\PYZus{}2011\PYZhy{}2015}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                           \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Bachelor\PYZus{}or\PYZus{}higher\PYZus{}2011\PYZhy{}2015}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                           \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Veterans\PYZus{}2011\PYZhy{}2015}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                           \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{With\PYZus{}disability\PYZus{}2011\PYZhy{}2015}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}                  
+                           \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Persons\PYZus{}in\PYZus{}poverty}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                           \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Persons\PYZus{}no\PYZus{}health\PYZus{}insurance}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}               
+                           \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Persons\PYZus{}per\PYZus{}household\PYZus{}2011\PYZhy{}2015}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                           \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Per\PYZus{}capita\PYZus{}income\PYZus{}past\PYZus{}12\PYZus{}months\PYZus{}2011\PYZhy{}2015}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                           \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Median\PYZus{}household\PYZus{}income\PYZus{}2011\PYZhy{}2015}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{n}{int\PYZus{}cols} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Population\PYZus{}2010}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                     \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Population\PYZus{}2016}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                     \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Veterans\PYZus{}2011\PYZhy{}2015}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                     \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Per\PYZus{}capita\PYZus{}income\PYZus{}past\PYZus{}12\PYZus{}months\PYZus{}2011\PYZhy{}2015}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                     \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Median\PYZus{}household\PYZus{}income\PYZus{}2011\PYZhy{}2015}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         
+         \PY{n}{float\PYZus{}cols} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Population\PYZus{}sq\PYZus{}mile\PYZus{}2010}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                       \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Land\PYZus{}area\PYZus{}sq\PYZus{}mile\PYZus{}2010}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                       \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Persons\PYZus{}per\PYZus{}household\PYZus{}2011\PYZhy{}2015}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         
+         \PY{n}{per\PYZus{}cols} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{White\PYZus{}2016}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                     \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Hispanic\PYZus{}Latino\PYZus{}2016}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                     \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Black\PYZus{}African\PYZus{}American\PYZus{}2016}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                     \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{American\PYZus{}Indian\PYZus{}Alaska\PYZus{}Native\PYZus{}2016}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                     \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Native\PYZus{}Hawaiian\PYZus{}Pacific\PYZus{}Islander\PYZus{}2016}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                     \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Asian\PYZus{}2016}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                     \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Foreign\PYZus{}born\PYZus{}persons\PYZus{}2011\PYZhy{}2015}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                     \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Language\PYZus{}not\PYZus{}English\PYZus{}spoken\PYZus{}home\PYZus{}2011\PYZhy{}2015}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                     \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{High\PYZus{}school\PYZus{}or\PYZus{}higher\PYZus{}2011\PYZhy{}2015}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                     \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Bachelor\PYZus{}or\PYZus{}higher\PYZus{}2011\PYZhy{}2015}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                     \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{With\PYZus{}disability\PYZus{}2011\PYZhy{}2015}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                     \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Persons\PYZus{}in\PYZus{}poverty}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                     \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Persons\PYZus{}no\PYZus{}health\PYZus{}insurance}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                     \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Persons\PYZus{}per\PYZus{}household\PYZus{}2011\PYZhy{}2015}\PY{l+s+s1}{\PYZsq{}}
+                    \PY{p}{]}
+         
+         \PY{c+c1}{\PYZsh{} remove commas, percent, dolar and zero signs}
+         \PY{k}{for} \PY{n}{c} \PY{o+ow}{in} \PY{n}{census}\PY{o}{.}\PY{n}{columns}\PY{p}{:}
+             \PY{n}{census}\PY{p}{[}\PY{n}{c}\PY{p}{]} \PY{o}{=} \PY{n}{census}\PY{p}{[}\PY{n}{c}\PY{p}{]}\PY{o}{.}\PY{n}{str}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Z}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{0}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{o}{.}\PY{n}{str}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{,}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{o}{.}\PY{n}{str}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZpc{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{o}{.}\PY{n}{str}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} convert columns from string to int}
+         \PY{k}{for} \PY{n}{c} \PY{o+ow}{in} \PY{n}{int\PYZus{}cols}\PY{p}{:}
+             \PY{n}{census}\PY{p}{[}\PY{n}{c}\PY{p}{]} \PY{o}{=} \PY{n}{census}\PY{p}{[}\PY{n}{c}\PY{p}{]}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{int}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} convert columns from string to float}
+         \PY{k}{for} \PY{n}{c} \PY{o+ow}{in} \PY{n}{float\PYZus{}cols}\PY{p}{:}
+             \PY{n}{census}\PY{p}{[}\PY{n}{c}\PY{p}{]} \PY{o}{=} \PY{n}{census}\PY{p}{[}\PY{n}{c}\PY{p}{]}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{float}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} convert percent values to floats}
+         \PY{k}{for} \PY{n}{c} \PY{o+ow}{in} \PY{n}{per\PYZus{}cols}\PY{p}{:}
+             \PY{n}{census}\PY{p}{[}\PY{n}{c}\PY{p}{]} \PY{o}{=} \PY{n}{census}\PY{p}{[}\PY{n}{c}\PY{p}{]}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{float}\PY{p}{)} \PY{o}{/} \PY{l+m+mi}{100}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{c+c1}{\PYZsh{} display cleaned dataset}
+         \PY{n}{census}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}15}]:}             Population\_2010  Population\_2016  Population\_sq\_mile\_2010  \textbackslash{}
+         Alabama             4779736          4863300                     94.4   
+         Alaska               710231           741894                      1.2   
+         Arizona             6392017          6931071                     56.3   
+         Arkansas            2915918          2988248                     56.0   
+         California         37253956         39250017                    239.1   
+         
+                     Land\_area\_sq\_mile\_2010  White\_2016  Hispanic\_Latino\_2016  \textbackslash{}
+         Alabama                   50645.33       0.658                 0.042   
+         Alaska                   570640.95       0.612                 0.070   
+         Arizona                  113594.08       0.555                 0.309   
+         Arkansas                  52035.48       0.729                 0.073   
+         California               155779.22       0.377                 0.389   
+         
+                     Black\_African\_American\_2016  American\_Indian\_Alaska\_Native\_2016  \textbackslash{}
+         Alabama                           0.268                               0.007   
+         Alaska                            0.038                               0.152   
+         Arizona                           0.049                               0.054   
+         Arkansas                          0.157                               0.010   
+         California                        0.065                               0.017   
+         
+                     Native\_Hawaiian\_Pacific\_Islander\_2016  Asian\_2016  \textbackslash{}
+         Alabama                                     0.001       0.014   
+         Alaska                                      0.013       0.063   
+         Arizona                                     0.003       0.034   
+         Arkansas                                    0.003       0.016   
+         California                                  0.005       0.148   
+         
+                                   {\ldots}                  \textbackslash{}
+         Alabama                   {\ldots}                   
+         Alaska                    {\ldots}                   
+         Arizona                   {\ldots}                   
+         Arkansas                  {\ldots}                   
+         California                {\ldots}                   
+         
+                     Language\_not\_English\_spoken\_home\_2011-2015  \textbackslash{}
+         Alabama                                          0.052   
+         Alaska                                           0.162   
+         Arizona                                          0.269   
+         Arkansas                                         0.072   
+         California                                       0.439   
+         
+                     High\_school\_or\_higher\_2011-2015  Bachelor\_or\_higher\_2011-2015  \textbackslash{}
+         Alabama                               0.843                         0.235   
+         Alaska                                0.921                         0.280   
+         Arizona                               0.860                         0.275   
+         Arkansas                              0.848                         0.211   
+         California                            0.818                         0.314   
+         
+                     Veterans\_2011-2015  With\_disability\_2011-2015  Persons\_in\_poverty  \textbackslash{}
+         Alabama                 363170                      0.118               0.171   
+         Alaska                   69323                      0.081               0.099   
+         Arizona                 505794                      0.082               0.164   
+         Arkansas                220953                      0.123               0.172   
+         California             1777410                      0.068               0.143   
+         
+                     Persons\_no\_health\_insurance  Persons\_per\_household\_2011-2015  \textbackslash{}
+         Alabama                           0.107                           0.0255   
+         Alaska                            0.155                           0.0281   
+         Arizona                           0.119                           0.0269   
+         Arkansas                          0.093                           0.0253   
+         California                        0.083                           0.0296   
+         
+                     Per\_capita\_income\_past\_12\_months\_2011-2015  \textbackslash{}
+         Alabama                                          24091   
+         Alaska                                           33413   
+         Arizona                                          25848   
+         Arkansas                                         22798   
+         California                                       30318   
+         
+                     Median\_household\_income\_2011-2015  
+         Alabama                                 43623  
+         Alaska                                  72515  
+         Arizona                                 50255  
+         Arkansas                                41371  
+         California                              61818  
+         
+         [5 rows x 21 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{c+c1}{\PYZsh{} display datatypes and non\PYZhy{}null counts for cleaned dataset}
+         \PY{n}{census}\PY{o}{.}\PY{n}{info}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+<class 'pandas.core.frame.DataFrame'>
+Index: 50 entries, Alabama to Wyoming
+Data columns (total 21 columns):
+Population\_2010                               50 non-null int32
+Population\_2016                               50 non-null int32
+Population\_sq\_mile\_2010                       50 non-null float64
+Land\_area\_sq\_mile\_2010                        50 non-null float64
+White\_2016                                    50 non-null float64
+Hispanic\_Latino\_2016                          50 non-null float64
+Black\_African\_American\_2016                   50 non-null float64
+American\_Indian\_Alaska\_Native\_2016            50 non-null float64
+Native\_Hawaiian\_Pacific\_Islander\_2016         50 non-null float64
+Asian\_2016                                    50 non-null float64
+Foreign\_born\_persons\_2011-2015                50 non-null float64
+Language\_not\_English\_spoken\_home\_2011-2015    50 non-null float64
+High\_school\_or\_higher\_2011-2015               50 non-null float64
+Bachelor\_or\_higher\_2011-2015                  50 non-null float64
+Veterans\_2011-2015                            50 non-null int32
+With\_disability\_2011-2015                     50 non-null float64
+Persons\_in\_poverty                            50 non-null float64
+Persons\_no\_health\_insurance                   50 non-null float64
+Persons\_per\_household\_2011-2015               50 non-null float64
+Per\_capita\_income\_past\_12\_months\_2011-2015    50 non-null int32
+Median\_household\_income\_2011-2015             50 non-null int32
+dtypes: float64(16), int32(5)
+memory usage: 7.6+ KB
+
+    \end{Verbatim}
+
+    \textbf{Gun Dataset}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{c+c1}{\PYZsh{} check if all states from gun dataframe exist in the census dataframe}
+         \PY{n}{states\PYZus{}drop} \PY{o}{=} \PY{n}{gun}\PY{p}{[}\PY{o}{\PYZti{}}\PY{n}{gun}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{state}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{isin}\PY{p}{(}\PY{n}{census}\PY{o}{.}\PY{n}{index}\PY{p}{)}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{state}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{p}{)}
+         \PY{n}{states\PYZus{}drop}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}17}]:} array(['District of Columbia', 'Guam', 'Mariana Islands', 'Puerto Rico',
+                'Virgin Islands'], dtype=object)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{c+c1}{\PYZsh{} drop rows for states which exist only in gun dataframe}
+         \PY{n}{gun} \PY{o}{=} \PY{n}{gun}\PY{p}{[}\PY{o}{\PYZti{}}\PY{n}{gun}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{state}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{isin}\PY{p}{(}\PY{n}{states\PYZus{}drop}\PY{p}{)}\PY{p}{]}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{n}{drop}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{c+c1}{\PYZsh{} convert month column to datetime}
+         \PY{n}{gun}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{month}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=}  \PY{n}{pd}\PY{o}{.}\PY{n}{to\PYZus{}datetime}\PY{p}{(}\PY{n}{gun}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{month}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{c+c1}{\PYZsh{} fill blanks with 0.0}
+         \PY{n}{gun} \PY{o}{=} \PY{n}{gun}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{l+m+mf}{0.0}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{c+c1}{\PYZsh{} select columns from gun dataset which will be analysed}
+         \PY{n}{gun} \PY{o}{=} \PY{n}{gun}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{month}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{state}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{permit}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{handgun}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{long\PYZus{}gun}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{other}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{totals}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{c+c1}{\PYZsh{} display cleaned dataset}
+         \PY{n}{gun}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}22}]:}        month       state   permit  handgun  long\_gun   other  totals
+         0 2017-09-01     Alabama  16717.0   5734.0    6320.0   221.0   32019
+         1 2017-09-01      Alaska    209.0   2320.0    2930.0   219.0    6303
+         2 2017-09-01     Arizona   5069.0  11063.0    7946.0   920.0   28394
+         3 2017-09-01    Arkansas   2935.0   4347.0    6063.0   165.0   17747
+         4 2017-09-01  California  57839.0  37165.0   24581.0  2984.0  123506
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{c+c1}{\PYZsh{} display datatypes and non\PYZhy{}null counts for cleaned dataset}
+         \PY{n}{gun}\PY{o}{.}\PY{n}{info}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 11350 entries, 0 to 11349
+Data columns (total 7 columns):
+month       11350 non-null datetime64[ns]
+state       11350 non-null object
+permit      11350 non-null float64
+handgun     11350 non-null float64
+long\_gun    11350 non-null float64
+other       11350 non-null float64
+totals      11350 non-null int64
+dtypes: datetime64[ns](1), float64(4), int64(1), object(1)
+memory usage: 620.8+ KB
+
+    \end{Verbatim}
+
+     \#\# Exploratory Data Analysis
+
+\hypertarget{what-is-the-overall-trend-of-gun-purchases}{%
+\subsubsection{What is the overall trend of gun
+purchases?}\label{what-is-the-overall-trend-of-gun-purchases}}
+
+These statistics represent the number of firearm background checks
+initiated through the NICS. They do not represent the number of firearms
+sold. Based on varying state laws and purchase scenarios, a one-to-one
+correlation cannot be made between a firearm background check and a
+firearm sale. Therefore, we will look at the number of firearm
+background checks.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{c+c1}{\PYZsh{} calculate total number of firearm background checks by year}
+         \PY{n}{gun\PYZus{}total\PYZus{}year} \PY{o}{=} \PY{n}{gun}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{month}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{totals}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{n}{gun}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{month}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+         \PY{n}{gun\PYZus{}total\PYZus{}year}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}24}]:}             totals
+         month             
+         1998-11-01   21174
+         1998-12-01  870202
+         1999-01-01  585569
+         1999-02-01  689867
+         1999-03-01  741234
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{c+c1}{\PYZsh{} plot total number of firearm background checks over time}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{16}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)}   
+         
+         \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{111}\PY{p}{)}    
+         \PY{n}{ax}\PY{o}{.}\PY{n}{spines}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{top}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}visible}\PY{p}{(}\PY{k+kc}{False}\PY{p}{)}    
+         \PY{n}{ax}\PY{o}{.}\PY{n}{spines}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{right}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}visible}\PY{p}{(}\PY{k+kc}{False}\PY{p}{)}    
+         \PY{n}{ax}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{n}{which}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{major}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{both}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linestyle}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZsh{}3F5D7D}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{yticks}\PY{p}{(}\PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{14}\PY{p}{)}    
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{14}\PY{p}{)}   
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylim}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{3500000}\PY{p}{)}    
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlim}\PY{p}{(}\PY{n}{datetime}\PY{o}{.}\PY{n}{date}\PY{p}{(}\PY{l+m+mi}{1998}\PY{p}{,} \PY{l+m+mi}{11}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{n}{datetime}\PY{o}{.}\PY{n}{date}\PY{p}{(}\PY{l+m+mi}{2018}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{gun\PYZus{}total\PYZus{}year}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZsh{}3F5D7D}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Total number of firearm background checks, USA, 1998\PYZhy{}2017}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                   \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{18}\PY{p}{,}
+                   \PY{n}{ha}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{center}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                   \PY{n}{pad}\PY{o}{=}\PY{l+m+mi}{24}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Year}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                    \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{14}\PY{p}{,}
+                    \PY{n}{labelpad}\PY{o}{=}\PY{l+m+mi}{20}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Count}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} 
+                    \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{14}\PY{p}{,}
+                    \PY{n}{labelpad}\PY{o}{=}\PY{l+m+mi}{20}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_34_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Overall, we can see an increase in the number of firearm background
+checks over the time. There seems to be also a seasonal trend. I will
+have a closer look at it in the next plot.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{c+c1}{\PYZsh{} calculate total number of firearm background checks per month}
+         \PY{n}{gun\PYZus{}total\PYZus{}month} \PY{o}{=} \PY{n}{gun\PYZus{}total\PYZus{}year}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{p}{)}
+         \PY{n}{gun\PYZus{}total\PYZus{}month} \PY{o}{=} \PY{n}{gun\PYZus{}total\PYZus{}month}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{n}{gun\PYZus{}total\PYZus{}month}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{month}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{dt}\PY{o}{.}\PY{n}{strftime}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{B}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{totals}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} sort by month \PYZhy{} SO https://stackoverflow.com/a/48043319}
+         \PY{n}{months} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{January}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{February}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{March}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{April}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{May}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{June}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} 
+                   \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{July}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{August}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{September}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{October}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{November}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{December}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+         
+         \PY{n}{gun\PYZus{}total\PYZus{}month}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{month}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{Categorical}\PY{p}{(}\PY{n}{gun\PYZus{}total\PYZus{}month}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{month}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{categories}\PY{o}{=}\PY{n}{months}\PY{p}{,} \PY{n}{ordered}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{gun\PYZus{}total\PYZus{}month}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{n}{by}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{month}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{ascending}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,}\PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{gun\PYZus{}total\PYZus{}month}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{n}{drop}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{gun\PYZus{}total\PYZus{}month}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}26}]:}         month    totals
+         0     January  22576465
+         1    February  24368225
+         2       March  25337866
+         3       April  21304597
+         4         May  18898829
+         5        June  18547973
+         6        July  18705500
+         7      August  20845426
+         8   September  21603207
+         9     October  22441249
+         10   November  24461454
+         11   December  30301215
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{c+c1}{\PYZsh{} plot total number of firearm background checks per month}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{14}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)} 
+         
+         \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{111}\PY{p}{)}  
+         \PY{n}{ax}\PY{o}{.}\PY{n}{spines}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{top}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}visible}\PY{p}{(}\PY{k+kc}{False}\PY{p}{)}  
+         \PY{n}{ax}\PY{o}{.}\PY{n}{spines}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{right}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}visible}\PY{p}{(}\PY{k+kc}{False}\PY{p}{)}    
+         \PY{n}{ax}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{n}{which}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{major}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linestyle}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZsh{}3F5D7D}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{14}\PY{p}{,} \PY{n}{rotation}\PY{o}{=}\PY{l+m+mi}{75}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{yticks}\PY{p}{(}\PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{14}\PY{p}{)} 
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{tick\PYZus{}params}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{both}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{which}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{both}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{bottom}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{top}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,}
+                         \PY{n}{labelbottom}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{left}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{right}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{labelleft}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)} 
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylim}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{35000000}\PY{p}{)}    
+         
+         \PY{n}{bar\PYZus{}list} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{gun\PYZus{}total\PYZus{}month}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{month}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{gun\PYZus{}total\PYZus{}month}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{totals}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZsh{}3F5D7D}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{edgecolor}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{k}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{k}{for} \PY{n}{a}\PY{p}{,}\PY{n}{b} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{n}{gun\PYZus{}total\PYZus{}month}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{month}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{gun\PYZus{}total\PYZus{}month}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{totals}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{text}\PY{p}{(}\PY{n}{a}\PY{p}{,} \PY{n}{b} \PY{o}{+} \PY{l+m+mi}{250000}\PY{p}{,} \PY{n+nb}{str}\PY{p}{(}\PY{n}{b}\PY{p}{)}\PY{p}{,} \PY{n}{ha}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{center}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{va}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bottom}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{11}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Firearm background checks by month, USA, 1998\PYZhy{}2017}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                   \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{18}\PY{p}{,}
+                   \PY{n}{ha}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{center}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                   \PY{n}{pad}\PY{o}{=}\PY{l+m+mi}{24}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Month}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                    \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{14}\PY{p}{,}
+                    \PY{n}{labelpad}\PY{o}{=}\PY{l+m+mi}{20}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Count}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} 
+                    \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{14}\PY{p}{,}
+                    \PY{n}{labelpad}\PY{o}{=}\PY{l+m+mi}{20}\PY{p}{)}
+                 
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_37_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    As we can see in the above plot, the number of firearm background checks
+seems to increase at the end of the year. This might be related to the
+Black Friday, Christmas and New Years sales, however, we do not have
+data to prove that suspicion. We can also see a decrease in the number
+of firearm background checks in the middle of the year - May, June, and
+July are months with the lowest numbers.
+
+    \hypertarget{which-states-have-had-the-highest-number-of-firearm-background-checks-per-capita}{%
+\subsubsection{Which states have had the highest number of firearm
+background checks per
+capita?}\label{which-states-have-had-the-highest-number-of-firearm-background-checks-per-capita}}
+
+The law on gun purchase can vary significantly between states, which
+makes it hard to compare states to each other. Nevertheless, it can be
+interesting to compare the number of firearm background checks in each
+state against the state's population.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{c+c1}{\PYZsh{} calculate total number of firearm background checks per year by state }
+         \PY{n}{gun\PYZus{}total\PYZus{}state} \PY{o}{=} \PY{n}{gun}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{month}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{totals}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{state}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+         \PY{n}{gun\PYZus{}total\PYZus{}state} \PY{o}{=} \PY{n}{gun\PYZus{}total\PYZus{}state}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{n}{gun\PYZus{}total\PYZus{}state}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{state}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{gun\PYZus{}total\PYZus{}state}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{month}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{dt}\PY{o}{.}\PY{n}{strftime}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{Y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{]}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{totals}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{p}{)}
+         \PY{n}{gun\PYZus{}total\PYZus{}state}\PY{o}{.}\PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{state}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{totals}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         
+         \PY{c+c1}{\PYZsh{} we do not have full year data for 1998 and 2017 in gun dataset}
+         \PY{c+c1}{\PYZsh{} and population data for 1999 in the census dataset}
+         \PY{c+c1}{\PYZsh{} we will drop rows for these years}
+         \PY{n}{gun\PYZus{}total\PYZus{}state} \PY{o}{=} \PY{n}{gun\PYZus{}total\PYZus{}state}\PY{p}{[}\PY{p}{(}\PY{n}{gun\PYZus{}total\PYZus{}state}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{!=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1998}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{gun\PYZus{}total\PYZus{}state}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{!=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1999}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{gun\PYZus{}total\PYZus{}state}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{!=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2017}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{]}
+         \PY{n}{gun\PYZus{}total\PYZus{}state}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}28}]:}      state  year  totals
+         2  Alabama  2000  221911
+         3  Alabama  2001  230187
+         4  Alabama  2002  221008
+         5  Alabama  2003  225479
+         6  Alabama  2004  229997
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{c+c1}{\PYZsh{} copy population data from the census dataset, we have data for 2010 and 2016 only}
+         \PY{n}{population} \PY{o}{=} \PY{n}{census}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Population\PYZus{}2010}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Population\PYZus{}2016}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}
+         \PY{n}{population}\PY{o}{.}\PY{n}{index}\PY{o}{.}\PY{n}{name} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{state}\PY{l+s+s1}{\PYZsq{}}
+         \PY{n}{population}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}29}]:}             Population\_2010  Population\_2016
+         state                                       
+         Alabama             4779736          4863300
+         Alaska               710231           741894
+         Arizona             6392017          6931071
+         Arkansas            2915918          2988248
+         California         37253956         39250017
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}30}]:} \PY{c+c1}{\PYZsh{} get gun data for 2010 and 2016}
+         \PY{n}{gun\PYZus{}total\PYZus{}state\PYZus{}2010} \PY{o}{=} \PY{n}{gun\PYZus{}total\PYZus{}state}\PY{p}{[}\PY{n}{gun\PYZus{}total\PYZus{}state}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2010}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}index}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{state}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{gun\PYZus{}total\PYZus{}state\PYZus{}2016} \PY{o}{=} \PY{n}{gun\PYZus{}total\PYZus{}state}\PY{p}{[}\PY{n}{gun\PYZus{}total\PYZus{}state}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2016}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}index}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{state}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} merge data into one dataset}
+         \PY{n}{gun\PYZus{}total\PYZus{}state\PYZus{}2010\PYZus{}2016} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{merge}\PY{p}{(}\PY{n}{gun\PYZus{}total\PYZus{}state\PYZus{}2010}\PY{p}{,} \PY{n}{gun\PYZus{}total\PYZus{}state\PYZus{}2016}\PY{p}{,} \PY{n}{how}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{left}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{left\PYZus{}on}\PY{o}{=}\PY{n}{gun\PYZus{}total\PYZus{}state\PYZus{}2010}\PY{o}{.}\PY{n}{index}\PY{p}{,} \PY{n}{right\PYZus{}on}\PY{o}{=}\PY{n}{gun\PYZus{}total\PYZus{}state\PYZus{}2016}\PY{o}{.}\PY{n}{index}\PY{p}{,} \PY{n}{left\PYZus{}index}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{key\PYZus{}0}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{year\PYZus{}x}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{year\PYZus{}y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{gun\PYZus{}total\PYZus{}state\PYZus{}2010\PYZus{}2016}\PY{o}{.}\PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{totals\PYZus{}2010}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{totals\PYZus{}2016}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{gun\PYZus{}total\PYZus{}state\PYZus{}2010\PYZus{}2016}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}30}]:}             totals\_2010  totals\_2016
+         state                               
+         Alabama          308607       616947
+         Alaska            65909        87647
+         Arizona          206050       416279
+         Arkansas         191448       266014
+         California       816399      2377167
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}31}]:} \PY{c+c1}{\PYZsh{} check if indexes in population and gun datasets are the same }
+         \PY{n}{gun\PYZus{}total\PYZus{}state\PYZus{}2010\PYZus{}2016}\PY{o}{.}\PY{n}{index}\PY{o}{.}\PY{n}{isin}\PY{p}{(}\PY{n}{population}\PY{o}{.}\PY{n}{index}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}31}]:} array([ True,  True,  True,  True,  True,  True,  True,  True,  True,
+                 True,  True,  True,  True,  True,  True,  True,  True,  True,
+                 True,  True,  True,  True,  True,  True,  True,  True,  True,
+                 True,  True,  True,  True,  True,  True,  True,  True,  True,
+                 True,  True,  True,  True,  True,  True,  True,  True,  True,
+                 True,  True,  True,  True,  True])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}32}]:} \PY{c+c1}{\PYZsh{} merge population and gun datasets}
+         \PY{n}{growth\PYZus{}data\PYZus{}pop} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{merge}\PY{p}{(}\PY{n}{gun\PYZus{}total\PYZus{}state\PYZus{}2010\PYZus{}2016}\PY{p}{,} \PY{n}{population}\PY{p}{,} \PY{n}{how}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{left}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{left\PYZus{}on}\PY{o}{=}\PY{n}{gun\PYZus{}total\PYZus{}state\PYZus{}2010\PYZus{}2016}\PY{o}{.}\PY{n}{index}\PY{p}{,} \PY{n}{right\PYZus{}on}\PY{o}{=}\PY{n}{population}\PY{o}{.}\PY{n}{index}\PY{p}{,} \PY{n}{left\PYZus{}index}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{key\PYZus{}0}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{growth\PYZus{}data\PYZus{}pop}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}32}]:}             totals\_2010  totals\_2016  Population\_2010  Population\_2016
+         state                                                                 
+         Alabama          308607       616947          4779736          4863300
+         Alaska            65909        87647           710231           741894
+         Arizona          206050       416279          6392017          6931071
+         Arkansas         191448       266014          2915918          2988248
+         California       816399      2377167         37253956         39250017
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}33}]:} \PY{c+c1}{\PYZsh{} calculate number of firearm background checks per capita for 2010 and 2016}
+         \PY{n}{growth\PYZus{}data\PYZus{}pop}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{checks\PYZus{}per\PYZus{}capita\PYZus{}2010}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{growth\PYZus{}data\PYZus{}pop}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{totals\PYZus{}2010}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{/} \PY{n}{growth\PYZus{}data\PYZus{}pop}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Population\PYZus{}2010}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{growth\PYZus{}data\PYZus{}pop}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{checks\PYZus{}per\PYZus{}capita\PYZus{}2016}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{growth\PYZus{}data\PYZus{}pop}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{totals\PYZus{}2016}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{/} \PY{n}{growth\PYZus{}data\PYZus{}pop}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Population\PYZus{}2016}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{growth\PYZus{}data\PYZus{}pop}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}33}]:}             totals\_2010  totals\_2016  Population\_2010  Population\_2016  \textbackslash{}
+         state                                                                    
+         Alabama          308607       616947          4779736          4863300   
+         Alaska            65909        87647           710231           741894   
+         Arizona          206050       416279          6392017          6931071   
+         Arkansas         191448       266014          2915918          2988248   
+         California       816399      2377167         37253956         39250017   
+         
+                     checks\_per\_capita\_2010  checks\_per\_capita\_2016  
+         state                                                       
+         Alabama                   0.064566                0.126858  
+         Alaska                    0.092799                0.118140  
+         Arizona                   0.032236                0.060060  
+         Arkansas                  0.065656                0.089020  
+         California                0.021914                0.060565  
+\end{Verbatim}
+            
+    \hypertarget{top-10-states-with-the-highest-number-of-firearm-background-checks-per-capita-for-2010}{%
+\paragraph{Top 10 states with the highest number of firearm background
+checks per capita for
+2010}\label{top-10-states-with-the-highest-number-of-firearm-background-checks-per-capita-for-2010}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}34}]:} \PY{c+c1}{\PYZsh{} sort dataset by number of firearm background checks per capita for 2010}
+         \PY{n}{checks\PYZus{}per\PYZus{}capita\PYZus{}2010} \PY{o}{=} \PY{n}{growth\PYZus{}data\PYZus{}pop}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{n}{by}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{checks\PYZus{}per\PYZus{}capita\PYZus{}2010}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ascending}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{n}{drop}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+         \PY{n}{top10\PYZus{}checks\PYZus{}per\PYZus{}capita\PYZus{}2010} \PY{o}{=} \PY{n}{checks\PYZus{}per\PYZus{}capita\PYZus{}2010}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{state}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{totals\PYZus{}2010}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Population\PYZus{}2010}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{checks\PYZus{}per\PYZus{}capita\PYZus{}2010}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}
+         \PY{n}{top10\PYZus{}checks\PYZus{}per\PYZus{}capita\PYZus{}2010}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}34}]:}            state  totals\_2010  Population\_2010  checks\_per\_capita\_2010
+         0       Kentucky      2385579          4339367                0.549753
+         1           Utah       553134          2763885                0.200129
+         2        Montana       101095           989415                0.102177
+         3         Alaska        65909           710231                0.092799
+         4  West Virginia       159550          1852994                0.086104
+         5        Wyoming        47709           563626                0.084647
+         6   South Dakota        63151           814180                0.077564
+         7   North Dakota        47083           672591                0.070002
+         8       Arkansas       191448          2915918                0.065656
+         9      Tennessee       411024          6346105                0.064768
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}35}]:} \PY{c+c1}{\PYZsh{} plot top 10 states with the highest number of firearm background checks per capita in 2010}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{20}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)} 
+         
+         \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{111}\PY{p}{)}  
+         \PY{n}{ax}\PY{o}{.}\PY{n}{spines}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{top}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}visible}\PY{p}{(}\PY{k+kc}{False}\PY{p}{)}  
+         \PY{n}{ax}\PY{o}{.}\PY{n}{spines}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{right}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}visible}\PY{p}{(}\PY{k+kc}{False}\PY{p}{)}    
+         \PY{n}{ax}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{n}{which}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{major}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linestyle}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZsh{}3F5D7D}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{14}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{yticks}\PY{p}{(}\PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{14}\PY{p}{)} 
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{tick\PYZus{}params}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{both}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{which}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{both}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{bottom}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{top}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,}
+                         \PY{n}{labelbottom}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{left}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{right}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{labelleft}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)} 
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylim}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mf}{0.6}\PY{p}{)}    
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlim}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mf}{0.5}\PY{p}{,} \PY{l+m+mf}{9.5}\PY{p}{)}  
+         
+         \PY{n}{bar\PYZus{}list} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{top10\PYZus{}checks\PYZus{}per\PYZus{}capita\PYZus{}2010}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{state}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{top10\PYZus{}checks\PYZus{}per\PYZus{}capita\PYZus{}2010}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{checks\PYZus{}per\PYZus{}capita\PYZus{}2010}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZsh{}3F5D7D}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{edgecolor}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{k}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{k}{for} \PY{n}{a}\PY{p}{,}\PY{n}{b} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{n}{top10\PYZus{}checks\PYZus{}per\PYZus{}capita\PYZus{}2010}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{state}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{top10\PYZus{}checks\PYZus{}per\PYZus{}capita\PYZus{}2010}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{checks\PYZus{}per\PYZus{}capita\PYZus{}2010}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{text}\PY{p}{(}\PY{n}{a}\PY{p}{,} \PY{n}{b}\PY{p}{,} \PY{n+nb}{str}\PY{p}{(}\PY{n+nb}{round}\PY{p}{(}\PY{n}{b}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{n}{ha}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{center}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{va}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bottom}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{12}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{States with the highest number of firearm background checks per capita, USA, 2010}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                   \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{18}\PY{p}{,}
+                   \PY{n}{ha}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{center}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                   \PY{n}{pad}\PY{o}{=}\PY{l+m+mi}{24}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{State}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                    \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{14}\PY{p}{,}
+                    \PY{n}{labelpad}\PY{o}{=}\PY{l+m+mi}{20}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Checks per capita}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} 
+                    \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{14}\PY{p}{,}
+                    \PY{n}{labelpad}\PY{o}{=}\PY{l+m+mi}{20}\PY{p}{)}
+                 
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_48_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    As we can see, Kentucky has a significantly higher number of checks per
+capita. We do not have enough data to investigate the reason for this
+difference. It may be caused by legal conditions - more strict control
+of the sale of weapons, or/and by the higher popularity of gun ownership
+in this state. However, these are only assumptions that we can not
+confirm in any way.
+
+    \hypertarget{top-10-states-with-the-highest-number-of-firearm-background-checks-per-capita-for-2016}{%
+\paragraph{Top 10 states with the highest number of firearm background
+checks per capita for
+2016}\label{top-10-states-with-the-highest-number-of-firearm-background-checks-per-capita-for-2016}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}36}]:} \PY{c+c1}{\PYZsh{} sort dataset by number of firearm background checks per capita for 2016}
+         \PY{n}{checks\PYZus{}per\PYZus{}capita\PYZus{}2016}\PY{o}{=} \PY{n}{growth\PYZus{}data\PYZus{}pop}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{n}{by}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{checks\PYZus{}per\PYZus{}capita\PYZus{}2016}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ascending}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{n}{drop}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+         \PY{n}{top10\PYZus{}checks\PYZus{}per\PYZus{}capita\PYZus{}2016} \PY{o}{=} \PY{n}{checks\PYZus{}per\PYZus{}capita\PYZus{}2016}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{state}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{totals\PYZus{}2016}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Population\PYZus{}2016}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{checks\PYZus{}per\PYZus{}capita\PYZus{}2016}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}
+         \PY{n}{top10\PYZus{}checks\PYZus{}per\PYZus{}capita\PYZus{}2016}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}36}]:}            state  totals\_2016  Population\_2016  checks\_per\_capita\_2016
+         0       Kentucky      3676847          4436974                0.828683
+         1        Indiana      1436725          6633053                0.216601
+         2       Illinois      1924070         12801539                0.150300
+         3  West Virginia       242350          1831102                0.132352
+         4        Montana       136337          1042520                0.130776
+         5   South Dakota       111921           865454                0.129321
+         6        Alabama       616947          4863300                0.126858
+         7  New Hampshire       165164          1334795                0.123737
+         8         Alaska        87647           741894                0.118140
+         9      Minnesota       651599          5519952                0.118044
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}37}]:} \PY{c+c1}{\PYZsh{} plot top 10 states with the highest number of firearm background checks per capita in 2016}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{20}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)} 
+         
+         \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{111}\PY{p}{)}  
+         \PY{n}{ax}\PY{o}{.}\PY{n}{spines}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{top}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}visible}\PY{p}{(}\PY{k+kc}{False}\PY{p}{)}  
+         \PY{n}{ax}\PY{o}{.}\PY{n}{spines}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{right}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}visible}\PY{p}{(}\PY{k+kc}{False}\PY{p}{)}    
+         \PY{n}{ax}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{n}{which}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{major}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linestyle}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZsh{}3F5D7D}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{14}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{yticks}\PY{p}{(}\PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{14}\PY{p}{)} 
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{tick\PYZus{}params}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{both}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{which}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{both}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{bottom}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{top}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,}
+                         \PY{n}{labelbottom}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{left}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{right}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{labelleft}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)} 
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylim}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mf}{0.9}\PY{p}{)}    
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlim}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mf}{0.5}\PY{p}{,} \PY{l+m+mf}{9.5}\PY{p}{)}  
+         
+         \PY{n}{bar\PYZus{}list} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{top10\PYZus{}checks\PYZus{}per\PYZus{}capita\PYZus{}2016}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{state}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{top10\PYZus{}checks\PYZus{}per\PYZus{}capita\PYZus{}2016}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{checks\PYZus{}per\PYZus{}capita\PYZus{}2016}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZsh{}3F5D7D}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{edgecolor}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{k}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{k}{for} \PY{n}{a}\PY{p}{,}\PY{n}{b} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{n}{top10\PYZus{}checks\PYZus{}per\PYZus{}capita\PYZus{}2016}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{state}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{top10\PYZus{}checks\PYZus{}per\PYZus{}capita\PYZus{}2016}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{checks\PYZus{}per\PYZus{}capita\PYZus{}2016}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{text}\PY{p}{(}\PY{n}{a}\PY{p}{,} \PY{n}{b}\PY{p}{,} \PY{n+nb}{str}\PY{p}{(}\PY{n+nb}{round}\PY{p}{(}\PY{n}{b}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{n}{ha}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{center}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{va}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bottom}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{12}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{States with the highest number of firearm background checks per capita, USA, 2016}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                   \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{18}\PY{p}{,}
+                   \PY{n}{ha}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{center}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                   \PY{n}{pad}\PY{o}{=}\PY{l+m+mi}{24}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{State}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                    \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{14}\PY{p}{,}
+                    \PY{n}{labelpad}\PY{o}{=}\PY{l+m+mi}{20}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Checks per capita}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} 
+                    \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{14}\PY{p}{,}
+                    \PY{n}{labelpad}\PY{o}{=}\PY{l+m+mi}{20}\PY{p}{)}
+                 
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_52_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    The situation is quite similar for 2016. Again, we can see Kentucky
+state in the first place, with a significantly higher number of checks
+per capita than other states. As mentioned already, we do not have
+enough data to investigate the reason for this difference.
+
+Interestingly, we can see an increase in the number of checks per capita
+for other states. In 2010, values for most of the states in the top 10
+(except for Kentucky) were between \texttt{0.2\ -\ 0.06}, while in 2016
+values for most of the states (again, excluding Kentucky) are between
+\texttt{10.2\ -\ 0.12}. This increase in the number of checks will
+become more visible in the further part of the analysis.
+
+    \hypertarget{which-states-have-had-the-highest-growth-in-gun-registrations}{%
+\subsubsection{Which states have had the highest growth in gun
+registrations?}\label{which-states-have-had-the-highest-growth-in-gun-registrations}}
+
+    \hypertarget{percentage-increase-by-state}{%
+\paragraph{Percentage increase by
+state}\label{percentage-increase-by-state}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}38}]:} \PY{c+c1}{\PYZsh{} for each state, take the total number of firearm background checks form 2000 and 2017}
+         \PY{c+c1}{\PYZsh{} calculate increase percentage and save to the dataframe and print out}
+         
+         \PY{n}{growth} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         
+         \PY{k}{for} \PY{n}{state} \PY{o+ow}{in} \PY{n}{gun\PYZus{}total\PYZus{}state}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{state}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+             \PY{n}{first\PYZus{}year} \PY{o}{=} \PY{n}{gun\PYZus{}total\PYZus{}state}\PY{p}{[}\PY{p}{(}\PY{n}{gun\PYZus{}total\PYZus{}state}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{state}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{n}{state}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{gun\PYZus{}total\PYZus{}state}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2000}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{totals}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+             \PY{n}{last\PYZus{}year} \PY{o}{=} \PY{n}{gun\PYZus{}total\PYZus{}state}\PY{p}{[}\PY{p}{(}\PY{n}{gun\PYZus{}total\PYZus{}state}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{state}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{n}{state}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{gun\PYZus{}total\PYZus{}state}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2016}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{totals}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+             \PY{n}{nom\PYZus{}change} \PY{o}{=} \PY{n}{last\PYZus{}year} \PY{o}{\PYZhy{}} \PY{n}{first\PYZus{}year}
+             \PY{n}{per\PYZus{}change} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n+nb}{round}\PY{p}{(}\PY{p}{(}\PY{n}{last\PYZus{}year}\PY{o}{/}\PY{n}{first\PYZus{}year}\PY{p}{)} \PY{o}{*} \PY{l+m+mi}{100}\PY{p}{)}\PY{p}{)}
+             
+             \PY{n}{result} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{\PYZob{}}
+                 \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{state}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{n}{state}\PY{p}{,}
+                 \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{first\PYZus{}year}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{n}{first\PYZus{}year}\PY{p}{,} 
+                 \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{last\PYZus{}year}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{n}{last\PYZus{}year}\PY{p}{,}
+                 \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{nom\PYZus{}change}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{n}{nom\PYZus{}change}\PY{p}{,} 
+                 \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{per\PYZus{}change}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{n}{per\PYZus{}change}
+             \PY{p}{\PYZcb{}}\PY{p}{,} \PY{n}{index}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+         
+             \PY{n}{growth}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{result}\PY{p}{)}
+                     
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{ \PYZhy{} }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{ }\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{state}\PY{p}{,} \PY{n}{per\PYZus{}change}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Alabama - 278\% 
+Alaska - 219\% 
+Arizona - 281\% 
+Arkansas - 157\% 
+California - 299\% 
+Colorado - 176\% 
+Connecticut - 363\% 
+Delaware - 387\% 
+Florida - 540\% 
+Georgia - 174\% 
+Hawaii - 252\% 
+Idaho - 203\% 
+Illinois - 428\% 
+Indiana - 788\% 
+Iowa - 230\% 
+Kansas - 203\% 
+Kentucky - 1599\% 
+Louisiana - 224\% 
+Maine - 248\% 
+Maryland - 196\% 
+Massachusetts - 412\% 
+Michigan - 193\% 
+Minnesota - 352\% 
+Mississippi - 168\% 
+Missouri - 330\% 
+Montana - 192\% 
+Nebraska - 198\% 
+Nevada - 297\% 
+New Hampshire - 412\% 
+New Jersey - 328\% 
+New Mexico - 192\% 
+New York - 247\% 
+North Carolina - 207\% 
+North Dakota - 223\% 
+Ohio - 319\% 
+Oklahoma - 232\% 
+Oregon - 240\% 
+Pennsylvania - 238\% 
+Rhode Island - 295\% 
+South Carolina - 313\% 
+South Dakota - 305\% 
+Tennessee - 305\% 
+Texas - 260\% 
+Utah - 437\% 
+Vermont - 194\% 
+Virginia - 280\% 
+Washington - 532\% 
+West Virginia - 189\% 
+Wisconsin - 311\% 
+Wyoming - 185\% 
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}39}]:} \PY{c+c1}{\PYZsh{} concatenate all dataframes to receive final dataframe with results for all states}
+         \PY{n}{growth\PYZus{}data} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{concat}\PY{p}{(}\PY{n}{growth}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{ignore\PYZus{}index}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{growth\PYZus{}data}\PY{o}{.}\PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{state}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{totals\PYZus{}2000}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{totals\PYZus{}2016}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nom\PYZus{}change}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{per\PYZus{}change}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{growth\PYZus{}data}\PY{o}{.}\PY{n}{set\PYZus{}index}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{state}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{growth\PYZus{}data}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}39}]:}             totals\_2000  totals\_2016  nom\_change  per\_change
+         state                                                       
+         Alabama          221911       616947      395036         278
+         Alaska            39959        87647       47688         219
+         Arizona          148263       416279      268016         281
+         Arkansas         169628       266014       96386         157
+         California       794506      2377167     1582661         299
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}40}]:} \PY{c+c1}{\PYZsh{} plot percentage increase by state}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{20}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)} 
+         
+         \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{111}\PY{p}{)}  
+         \PY{n}{ax}\PY{o}{.}\PY{n}{spines}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{top}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}visible}\PY{p}{(}\PY{k+kc}{False}\PY{p}{)}  
+         \PY{n}{ax}\PY{o}{.}\PY{n}{spines}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{right}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}visible}\PY{p}{(}\PY{k+kc}{False}\PY{p}{)}    
+         \PY{n}{ax}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{n}{which}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{major}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linestyle}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZsh{}3F5D7D}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{14}\PY{p}{,} \PY{n}{rotation}\PY{o}{=}\PY{l+m+mi}{90}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{yticks}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1601}\PY{p}{,} \PY{l+m+mi}{200}\PY{p}{)}\PY{p}{,} \PY{p}{[}\PY{n+nb}{str}\PY{p}{(}\PY{n}{x}\PY{p}{)} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZpc{}}\PY{l+s+s2}{\PYZdq{}} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1601}\PY{p}{,} \PY{l+m+mi}{200}\PY{p}{)}\PY{p}{]}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{14}\PY{p}{)} 
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{tick\PYZus{}params}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{both}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{which}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{both}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{bottom}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{top}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,}
+                         \PY{n}{labelbottom}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{left}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{right}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{labelleft}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)} 
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylim}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1650}\PY{p}{)}    
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlim}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{50}\PY{p}{)}  
+         
+         \PY{n}{bar\PYZus{}list} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{growth\PYZus{}data}\PY{o}{.}\PY{n}{index}\PY{p}{,} \PY{n}{growth\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{per\PYZus{}change}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZsh{}3F5D7D}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{edgecolor}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{k}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{k}{for} \PY{n}{a}\PY{p}{,}\PY{n}{b} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{n}{growth\PYZus{}data}\PY{o}{.}\PY{n}{index}\PY{p}{,} \PY{n}{growth\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{per\PYZus{}change}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{text}\PY{p}{(}\PY{n}{a}\PY{p}{,} \PY{n}{b}\PY{p}{,} \PY{n+nb}{str}\PY{p}{(}\PY{n+nb}{round}\PY{p}{(}\PY{n}{b}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{n}{ha}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{center}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{va}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bottom}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{12}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{States with the highest percentage increase in the number of firearm background checks, USA, 2010 vs 2016}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                   \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{18}\PY{p}{,}
+                   \PY{n}{ha}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{center}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                   \PY{n}{pad}\PY{o}{=}\PY{l+m+mi}{24}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{State}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                    \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{14}\PY{p}{,}
+                    \PY{n}{labelpad}\PY{o}{=}\PY{l+m+mi}{20}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Increase }\PY{l+s+s2}{\PYZpc{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} 
+                    \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{14}\PY{p}{,}
+                    \PY{n}{labelpad}\PY{o}{=}\PY{l+m+mi}{20}\PY{p}{)}
+                 
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_58_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    In the above plot, we can see a percentage increase in the number of
+firearm background checks by state. The comparison is made between the
+number of background checks in 2010 and 2016.
+
+As we can see, the number of checks has significantly increased for all
+states. This might be related to the increasing popularity of gun
+possession or/and more strict control of the sale of weapons.
+Unfortunately, we do not have enough data to investigate the reason for
+these increases.
+
+    \hypertarget{top-10-states-with-the-highest-percentage-increase}{%
+\paragraph{Top 10 states with the highest percentage
+increase}\label{top-10-states-with-the-highest-percentage-increase}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}41}]:} \PY{c+c1}{\PYZsh{} sort dataset by percentage change}
+         \PY{n}{growth\PYZus{}data\PYZus{}per} \PY{o}{=} \PY{n}{growth\PYZus{}data}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{n}{by}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{per\PYZus{}change}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ascending}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{n}{drop}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+         \PY{n}{top10\PYZus{}growth\PYZus{}data\PYZus{}per} \PY{o}{=} \PY{n}{growth\PYZus{}data\PYZus{}per}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}
+         \PY{n}{top10\PYZus{}growth\PYZus{}data\PYZus{}per}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}41}]:}            state  totals\_2000  totals\_2016  nom\_change  per\_change
+         0       Kentucky       229896      3676847     3446951        1599
+         1        Indiana       182319      1436725     1254406         788
+         2        Florida       266035      1435340     1169305         540
+         3     Washington       134255       713996      579741         532
+         4           Utah        67420       294907      227487         437
+         5       Illinois       449771      1924070     1474299         428
+         6  Massachusetts        54843       226212      171369         412
+         7  New Hampshire        40120       165164      125044         412
+         8       Delaware        15347        59430       44083         387
+         9    Connecticut        87586       317692      230106         363
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}42}]:} \PY{c+c1}{\PYZsh{} plot top 10 states with percentage increase}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{20}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)} 
+         
+         \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{111}\PY{p}{)}  
+         \PY{n}{ax}\PY{o}{.}\PY{n}{spines}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{top}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}visible}\PY{p}{(}\PY{k+kc}{False}\PY{p}{)}  
+         \PY{n}{ax}\PY{o}{.}\PY{n}{spines}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{right}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}visible}\PY{p}{(}\PY{k+kc}{False}\PY{p}{)}    
+         \PY{n}{ax}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{n}{which}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{major}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linestyle}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZsh{}3F5D7D}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{14}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} plt.yticks(range(0, 1601, 200), [str(x) + \PYZdq{}\PYZpc{}\PYZdq{} for x in range(0, 1601, 200)], fontsize=14) }
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{tick\PYZus{}params}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{both}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{which}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{both}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{bottom}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{top}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,}
+                         \PY{n}{labelbottom}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{left}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{right}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{labelleft}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)} 
+         
+         \PY{c+c1}{\PYZsh{} plt.ylim(0, 1650)    }
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlim}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mf}{0.5}\PY{p}{,} \PY{l+m+mf}{9.5}\PY{p}{)}  
+         
+         \PY{n}{bar\PYZus{}list} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{top10\PYZus{}growth\PYZus{}data\PYZus{}per}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{state}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{top10\PYZus{}growth\PYZus{}data\PYZus{}per}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{per\PYZus{}change}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZsh{}3F5D7D}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{edgecolor}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{k}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{k}{for} \PY{n}{a}\PY{p}{,}\PY{n}{b} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{n}{top10\PYZus{}growth\PYZus{}data\PYZus{}per}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{state}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{top10\PYZus{}growth\PYZus{}data\PYZus{}per}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{per\PYZus{}change}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{text}\PY{p}{(}\PY{n}{a}\PY{p}{,} \PY{n}{b}\PY{p}{,} \PY{n+nb}{str}\PY{p}{(}\PY{n+nb}{round}\PY{p}{(}\PY{n}{b}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{n}{ha}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{center}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{va}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bottom}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{12}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Top 10 \PYZhy{} States with the highest percentage increase in the number of firearm background checks, USA, 2010 vs 2016}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                   \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{18}\PY{p}{,}
+                   \PY{n}{ha}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{center}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                   \PY{n}{pad}\PY{o}{=}\PY{l+m+mi}{24}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{State}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                    \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{14}\PY{p}{,}
+                    \PY{n}{labelpad}\PY{o}{=}\PY{l+m+mi}{20}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Increase }\PY{l+s+s2}{\PYZpc{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} 
+                    \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{14}\PY{p}{,}
+                    \PY{n}{labelpad}\PY{o}{=}\PY{l+m+mi}{20}\PY{p}{)}
+                 
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_62_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    This is a bit closer look at the statistics for the top 10 states in
+terms of the percentage increase in the number of firearm background
+checks. Again, the comparison is made between the number of background
+checks in 2010 and 2016. We can observe a significant increase in
+Kentucky, which would require further analysis, as well as in the other
+states.
+
+    \hypertarget{top-10-states-with-the-highest-nominal-increase}{%
+\paragraph{Top 10 states with the highest nominal
+increase}\label{top-10-states-with-the-highest-nominal-increase}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}43}]:} \PY{c+c1}{\PYZsh{} sort dataset by nominal change}
+         \PY{n}{growth\PYZus{}data\PYZus{}nom} \PY{o}{=} \PY{n}{growth\PYZus{}data}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{n}{by}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nom\PYZus{}change}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ascending}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{n}{drop}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+         \PY{n}{top10\PYZus{}growth\PYZus{}data\PYZus{}nom} \PY{o}{=} \PY{n}{growth\PYZus{}data\PYZus{}nom}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}
+         \PY{n}{top10\PYZus{}growth\PYZus{}data\PYZus{}nom}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}43}]:}           state  totals\_2000  totals\_2016  nom\_change  per\_change
+         0      Kentucky       229896      3676847     3446951        1599
+         1    California       794506      2377167     1582661         299
+         2      Illinois       449771      1924070     1474299         428
+         3       Indiana       182319      1436725     1254406         788
+         4       Florida       266035      1435340     1169305         540
+         5         Texas       662970      1721726     1058756         260
+         6  Pennsylvania       481294      1143220      661926         238
+         7          Ohio       274165       875724      601559         319
+         8    Washington       134255       713996      579741         532
+         9     Tennessee       234673       714774      480101         305
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}44}]:} \PY{c+c1}{\PYZsh{} plot top 10 states with the highest nominal increase}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{20}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)} 
+         
+         \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{111}\PY{p}{)}  
+         \PY{n}{ax}\PY{o}{.}\PY{n}{spines}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{top}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}visible}\PY{p}{(}\PY{k+kc}{False}\PY{p}{)}  
+         \PY{n}{ax}\PY{o}{.}\PY{n}{spines}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{right}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}visible}\PY{p}{(}\PY{k+kc}{False}\PY{p}{)}    
+         \PY{n}{ax}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{n}{which}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{major}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linestyle}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZsh{}3F5D7D}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{14}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{yticks}\PY{p}{(}\PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{14}\PY{p}{)} 
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{tick\PYZus{}params}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{both}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{which}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{both}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{bottom}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{top}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,}
+                         \PY{n}{labelbottom}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{left}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{right}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{labelleft}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)} 
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlim}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mf}{0.5}\PY{p}{,} \PY{l+m+mf}{9.5}\PY{p}{)}    
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylim}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{3500000}\PY{p}{)}  
+         
+         \PY{n}{bar\PYZus{}list} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{top10\PYZus{}growth\PYZus{}data\PYZus{}nom}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{state}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{top10\PYZus{}growth\PYZus{}data\PYZus{}nom}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nom\PYZus{}change}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZsh{}3F5D7D}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{edgecolor}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{k}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{k}{for} \PY{n}{a}\PY{p}{,}\PY{n}{b} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{n}{top10\PYZus{}growth\PYZus{}data\PYZus{}nom}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{state}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{top10\PYZus{}growth\PYZus{}data\PYZus{}nom}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nom\PYZus{}change}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{text}\PY{p}{(}\PY{n}{a}\PY{p}{,} \PY{n}{b}\PY{p}{,} \PY{n+nb}{str}\PY{p}{(}\PY{n+nb}{round}\PY{p}{(}\PY{n}{b}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{n}{ha}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{center}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{va}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bottom}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{12}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{States with the highest nominal increase in the number of firearm background checks, USA, 2010 vs 2016}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                   \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{18}\PY{p}{,}
+                   \PY{n}{ha}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{center}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                   \PY{n}{pad}\PY{o}{=}\PY{l+m+mi}{24}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{State}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                    \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{14}\PY{p}{,}
+                    \PY{n}{labelpad}\PY{o}{=}\PY{l+m+mi}{20}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Nominal change}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} 
+                    \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{14}\PY{p}{,}
+                    \PY{n}{labelpad}\PY{o}{=}\PY{l+m+mi}{20}\PY{p}{)}
+                 
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_66_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    In the above plot, we can see a nominal increase in the number of
+firearm background checks by state. The comparison is made between the
+number of background checks in 2010 and 2016.
+
+As we can see, the number of checks has significantly increased for all
+states. Again, this might be related to the increasing popularity of gun
+possession or/and more strict control of the sale of weapons.
+Unfortunately, we do not have enough data to investigate the reason for
+these increases.
+
+    \hypertarget{what-census-data-is-most-associated-with-high-gunregistration}{%
+\paragraph{What census data is most associated with high
+gunregistration?}\label{what-census-data-is-most-associated-with-high-gunregistration}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}45}]:} \PY{c+c1}{\PYZsh{} get checks per capita}
+         \PY{n}{gun\PYZus{}checks\PYZus{}capita} \PY{o}{=} \PY{n}{growth\PYZus{}data\PYZus{}pop}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Population\PYZus{}2010}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Population\PYZus{}2016}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{gun\PYZus{}checks\PYZus{}capita}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}45}]:}             totals\_2010  totals\_2016  checks\_per\_capita\_2010  \textbackslash{}
+         state                                                          
+         Alabama          308607       616947                0.064566   
+         Alaska            65909        87647                0.092799   
+         Arizona          206050       416279                0.032236   
+         Arkansas         191448       266014                0.065656   
+         California       816399      2377167                0.021914   
+         
+                     checks\_per\_capita\_2016  
+         state                               
+         Alabama                   0.126858  
+         Alaska                    0.118140  
+         Arizona                   0.060060  
+         Arkansas                  0.089020  
+         California                0.060565  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}46}]:} \PY{c+c1}{\PYZsh{} merge census dateset with checks per capita from the gun dataset}
+         \PY{n}{census\PYZus{}gun} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{merge}\PY{p}{(}\PY{n}{census}\PY{p}{,} 
+                               \PY{n}{gun\PYZus{}checks\PYZus{}capita}\PY{p}{,} 
+                               \PY{n}{how}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{left}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} 
+                               \PY{n}{left\PYZus{}on}\PY{o}{=}\PY{n}{census}\PY{o}{.}\PY{n}{index}\PY{p}{,} 
+                               \PY{n}{right\PYZus{}on}\PY{o}{=}\PY{n}{gun\PYZus{}checks\PYZus{}capita}\PY{o}{.}\PY{n}{index}\PY{p}{,} 
+                               \PY{n}{left\PYZus{}index}\PY{o}{=}\PY{k+kc}{True}
+                              \PY{p}{)}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{key\PYZus{}0}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{census\PYZus{}gun}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}46}]:}             Population\_2010  Population\_2016  Population\_sq\_mile\_2010  \textbackslash{}
+         state                                                                   
+         Alabama             4779736          4863300                     94.4   
+         Alaska               710231           741894                      1.2   
+         Arizona             6392017          6931071                     56.3   
+         Arkansas            2915918          2988248                     56.0   
+         California         37253956         39250017                    239.1   
+         
+                     Land\_area\_sq\_mile\_2010  White\_2016  Hispanic\_Latino\_2016  \textbackslash{}
+         state                                                                  
+         Alabama                   50645.33       0.658                 0.042   
+         Alaska                   570640.95       0.612                 0.070   
+         Arizona                  113594.08       0.555                 0.309   
+         Arkansas                  52035.48       0.729                 0.073   
+         California               155779.22       0.377                 0.389   
+         
+                     Black\_African\_American\_2016  American\_Indian\_Alaska\_Native\_2016  \textbackslash{}
+         state                                                                         
+         Alabama                           0.268                               0.007   
+         Alaska                            0.038                               0.152   
+         Arizona                           0.049                               0.054   
+         Arkansas                          0.157                               0.010   
+         California                        0.065                               0.017   
+         
+                     Native\_Hawaiian\_Pacific\_Islander\_2016  Asian\_2016  \textbackslash{}
+         state                                                           
+         Alabama                                     0.001       0.014   
+         Alaska                                      0.013       0.063   
+         Arizona                                     0.003       0.034   
+         Arkansas                                    0.003       0.016   
+         California                                  0.005       0.148   
+         
+                              {\ldots}            With\_disability\_2011-2015  \textbackslash{}
+         state                {\ldots}                                        
+         Alabama              {\ldots}                                0.118   
+         Alaska               {\ldots}                                0.081   
+         Arizona              {\ldots}                                0.082   
+         Arkansas             {\ldots}                                0.123   
+         California           {\ldots}                                0.068   
+         
+                     Persons\_in\_poverty  Persons\_no\_health\_insurance  \textbackslash{}
+         state                                                         
+         Alabama                  0.171                        0.107   
+         Alaska                   0.099                        0.155   
+         Arizona                  0.164                        0.119   
+         Arkansas                 0.172                        0.093   
+         California               0.143                        0.083   
+         
+                     Persons\_per\_household\_2011-2015  \textbackslash{}
+         state                                         
+         Alabama                              0.0255   
+         Alaska                               0.0281   
+         Arizona                              0.0269   
+         Arkansas                             0.0253   
+         California                           0.0296   
+         
+                     Per\_capita\_income\_past\_12\_months\_2011-2015  \textbackslash{}
+         state                                                    
+         Alabama                                          24091   
+         Alaska                                           33413   
+         Arizona                                          25848   
+         Arkansas                                         22798   
+         California                                       30318   
+         
+                     Median\_household\_income\_2011-2015  totals\_2010  totals\_2016  \textbackslash{}
+         state                                                                     
+         Alabama                                 43623       308607       616947   
+         Alaska                                  72515        65909        87647   
+         Arizona                                 50255       206050       416279   
+         Arkansas                                41371       191448       266014   
+         California                              61818       816399      2377167   
+         
+                     checks\_per\_capita\_2010  checks\_per\_capita\_2016  
+         state                                                       
+         Alabama                   0.064566                0.126858  
+         Alaska                    0.092799                0.118140  
+         Arizona                   0.032236                0.060060  
+         Arkansas                  0.065656                0.089020  
+         California                0.021914                0.060565  
+         
+         [5 rows x 25 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}47}]:} \PY{c+c1}{\PYZsh{} compute the Pearson correlation coefficient}
+         \PY{n}{census\PYZus{}gun}\PY{o}{.}\PY{n}{corr}\PY{p}{(}\PY{n}{method}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pearson}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{style}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+si}{\PYZob{}:.2\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{o}{.}\PY{n}{background\PYZus{}gradient}\PY{p}{(}\PY{n}{cmap}\PY{o}{=}\PY{n}{plt}\PY{o}{.}\PY{n}{get\PYZus{}cmap}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{coolwarm}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}47}]:} <pandas.io.formats.style.Styler at 0x1f3adeae7f0>
+\end{Verbatim}
+            
+    We can see that the strongest correlation is between the checks per
+capita, household income and the number of veterans. For other columns,
+correlation is low or negative. Therefore, I will plot the number of
+checks per capita with household income and the number of veterans.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}48}]:} \PY{c+c1}{\PYZsh{} plot firearm background checks in 2016 vs household income (2011\PYZhy{}2015) from past 12 months (per capita)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{12}\PY{p}{,} \PY{l+m+mi}{6}\PY{p}{)}\PY{p}{)}   
+         
+         \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{111}\PY{p}{)}    
+         \PY{n}{ax}\PY{o}{.}\PY{n}{spines}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{top}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}visible}\PY{p}{(}\PY{k+kc}{False}\PY{p}{)}    
+         \PY{n}{ax}\PY{o}{.}\PY{n}{spines}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{right}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}visible}\PY{p}{(}\PY{k+kc}{False}\PY{p}{)}    
+         \PY{n}{ax}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{n}{which}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{major}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{both}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linestyle}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZsh{}3F5D7D}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{yticks}\PY{p}{(}\PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{14}\PY{p}{)}    
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{14}\PY{p}{)}   
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{census\PYZus{}gun}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Per\PYZus{}capita\PYZus{}income\PYZus{}past\PYZus{}12\PYZus{}months\PYZus{}2011\PYZhy{}2015}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
+                     \PY{n}{census\PYZus{}gun}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{checks\PYZus{}per\PYZus{}capita\PYZus{}2016}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} 
+                     \PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZsh{}3F5D7D}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Firearm background checks vs household income from past 12 months (per capita), USA, 2016}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                   \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{18}\PY{p}{,}
+                   \PY{n}{ha}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{center}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                   \PY{n}{pad}\PY{o}{=}\PY{l+m+mi}{24}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Income per capita}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                    \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{14}\PY{p}{,}
+                    \PY{n}{labelpad}\PY{o}{=}\PY{l+m+mi}{20}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Checks per capita}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} 
+                    \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{14}\PY{p}{,}
+                    \PY{n}{labelpad}\PY{o}{=}\PY{l+m+mi}{20}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_73_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}49}]:} \PY{c+c1}{\PYZsh{} plot firearm background checks in 2016 (per capita) vs number of veterans (2011\PYZhy{}2015)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{12}\PY{p}{,} \PY{l+m+mi}{6}\PY{p}{)}\PY{p}{)}   
+         
+         \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{111}\PY{p}{)}    
+         \PY{n}{ax}\PY{o}{.}\PY{n}{spines}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{top}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}visible}\PY{p}{(}\PY{k+kc}{False}\PY{p}{)}    
+         \PY{n}{ax}\PY{o}{.}\PY{n}{spines}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{right}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}visible}\PY{p}{(}\PY{k+kc}{False}\PY{p}{)}    
+         \PY{n}{ax}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{n}{which}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{major}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{both}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linestyle}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZsh{}3F5D7D}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{yticks}\PY{p}{(}\PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{14}\PY{p}{)}    
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{14}\PY{p}{)}   
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{census\PYZus{}gun}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Veterans\PYZus{}2011\PYZhy{}2015}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
+                     \PY{n}{census\PYZus{}gun}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{checks\PYZus{}per\PYZus{}capita\PYZus{}2016}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} 
+                     \PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZsh{}3F5D7D}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Firearm background checks (per capita) vs number of veterans, USA, 2016}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                   \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{18}\PY{p}{,}
+                   \PY{n}{ha}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{center}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                   \PY{n}{pad}\PY{o}{=}\PY{l+m+mi}{24}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Number of veterans}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                    \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{14}\PY{p}{,}
+                    \PY{n}{labelpad}\PY{o}{=}\PY{l+m+mi}{20}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Checks per capita}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} 
+                    \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{14}\PY{p}{,}
+                    \PY{n}{labelpad}\PY{o}{=}\PY{l+m+mi}{20}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_74_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+     \#\# Conclusions
+
+In general, we can see that the number of firearm background checks is
+increasing over time. This increase has been significant over the past
+19 years. Further analysis is required to determine the reasons for such
+a high increase.
+
+Correlation between the number of checks and census data is rather low.
+Household income and the number of veterans show the highest correlation
+among all data points but are still rather low.
+
+These datasets have a lot of limitations, which constrain the analysis.
+Census dataset does not contain information for all the years, and in
+many cases, provided values represent multiple years.
+
+A further analysis is required.
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
